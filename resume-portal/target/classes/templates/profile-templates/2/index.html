@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+
+	<!-- Making the title dynamic -->
+	<title th:text="${userProfile.firstName+' '+userProfile.lastName+' | '+userProfile.designation+' , '+' | '+userProfile.email}">title field</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+
+	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css" media="all" /> 
+	<link rel="stylesheet" type="text/css" href="../profile-templates/3/resume.css" media="all" />
+
+</head>
+<body>
+
+<div id="doc2" class="yui-t7">
+	<div id="inner">	
+		<div id="hd">
+			<div class="yui-gc">
+				<div class="yui-u first">
+					<h1>
+					<span th:text="${userProfile.firstName}">Joe</span> 
+					<span th:text="${userProfile.lastName}">Bloggs</span>
+					</h1>
+					<h5>
+					<a th:if="${currentUsersProfile}" href="/edit">Edit</a>
+					</h5>
+					
+					<h2 th:text="${userProfile.designation}">Web Designer, Director</h2>
+				</div>
+
+				<div class="yui-u">
+					<div class="contact-info">
+						<h3><a th:text="${userProfile.email}" href="${userProfile.email}">name@yourdomain.com</a></h3>
+						<h3 th:text="${userProfile.phone}">(313) - 867-5309</h3>
+					</div><!--// .contact-info -->
+				</div>
+			</div><!--// .yui-gc -->
+		</div><!--// hd -->
+
+		<div id="bd">
+			<div id="yui-main">
+				<div class="yui-b">
+
+					<div class="yui-gf">
+						<div class="yui-u first">
+							<h2>Profile</h2>
+						</div>
+						<div class="yui-u">
+							<p class="enlarge" th:text="${userProfile.summary}">
+								Progressively evolve cross-platform ideas before impactful infomediaries. Energistically visualize tactical initiatives before cross-media catalysts for change. 
+							</p>
+						</div>
+					</div><!--// .yui-gf -->
+
+					<div class="yui-gf">
+						<div class="yui-u first">
+							<h2>Skills</h2>
+						</div>
+						<div class="yui-u" >
+						<ul class="keySkills" th:each="skill : ${userProfile.skills}">
+						<li th:text="${skill}">A Key Skill</li>
+						</ul>
+								
+						</div>
+					</div><!--// .yui-gf -->
+
+					<div class="yui-gf">
+	
+						<div class="yui-u first">
+							<h2>Experience</h2>
+						</div><!--// .yui-u -->
+
+						<div class="yui-u"  th:each="job : ${userProfile.jobs}">
+							<article>
+							<h2><span th:text="${job.designation}">Job Title</span> at <span th:text="${job.company}">Company</span></h2>
+							<p class="subDetails">
+							<span th:text="${job.formattedStartDate}">April 2011</span> -
+							<span th:text="${job.currentJob}? 'Present' : ${job.formattedEndDate}">Present</span></p>
+							<ul th:each="responsibility : ${job.responsibilities}">
+							<li th:text="${responsibility}">Responsibility</li>
+							</ul>
+							</article>
+
+						</div><!--// .yui-u -->
+					</div><!--// .yui-gf -->
+
+
+					<div class="yui-gf last">
+						<div class="yui-u first">
+							<h2>Education</h2>
+						</div>
+						<div class="yui-u" th:each="education : ${userProfile.educations}">
+							<article>
+							<h2 th:text="${education.college}">College/University</h2>
+							<p class="subDetails" th:text="${education.qualification}">Qualification</p>
+							<p th:text="${education.summary}">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
+							</article>
+							</div>
+					</div><!--// .yui-gf -->
+
+
+				</div><!--// .yui-b -->
+			</div><!--// yui-main -->
+		</div><!--// bd -->
+
+	</div><!-- // inner -->
+
+
+</div><!--// doc -->
+
+
+</body>
+</html>
+
